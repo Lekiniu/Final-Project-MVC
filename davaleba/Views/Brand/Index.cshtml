@@ -1,0 +1,81 @@
+﻿@model IEnumerable<davaleba.Models.Brand>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+
+<script>
+    $(document).ready(function () {
+
+        $(function () {
+            $('#name').autocomplete({
+                source: '@Url.Action("GetBrandByName")'
+                })
+
+          })
+     });
+</script>
+
+
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<br />
+
+<form method="get" action="/Brand/Index">
+    <input type="text" name="Name" value="@ViewBag.Name" id="name" placeholder="სახელი" />
+    <input type="submit" class="btn btn-default" value="ძებნა" />
+</form>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-md" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-md" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-primary btn-md" }) |
+
+                @Ajax.ActionLink("product", "GetProductByBrandId", "Product", new { BrandId = item.Id }, new AjaxOptions()
+           {
+               HttpMethod = "Get",
+               UpdateTargetId = "products",
+               InsertionMode = InsertionMode.Replace,
+           },new { @class = "btn btn-success btn-md" })
+            </td>
+
+        </tr>
+
+    }
+</table>
+<br />
+<br />
+<div style="height:15px"></div>
+<div id="products"></div>
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>

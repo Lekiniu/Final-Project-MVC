@@ -1,0 +1,128 @@
+﻿@model davaleba.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    <style>
+        #PhotoId {
+            background-color: #2e6da4;
+            border-color: #2e6da4;
+            color: white;
+        }
+    </style>
+
+</head>
+
+
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InStock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Percent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Percent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Last_Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Last_Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Users.First_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Users.First_Name)
+        </dd>
+
+    </dl>
+</div>
+
+<div class="pic">
+    @foreach (var item in Model.Images)
+    {
+        <div>
+            <img src="@Url.Content(item.Url)" style="width:200px" ; />
+            <button class="btn btn-default" id="PhotoId" style="margin-left:-40px; margin-top: -120px; ">X</button>
+        </div>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+
+<script type="text/javascript">
+    $(document).on("click", "#PhotoId", function () {
+        if (confirm('Are you sure?')) {
+            $.ajax({
+                url: this.href,
+                type: 'POST',
+                context: this,
+                success: function (result) {
+                    $(this).closest('div').remove();
+                }
+            });
+        }
+        return false;
+    });
+</script>

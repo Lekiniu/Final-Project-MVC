@@ -1,0 +1,117 @@
+﻿
+@using PagedList.Mvc;
+@using PagedList;
+@model IPagedList<davaleba.Models.Users>
+
+@{
+    ViewBag.Title = "Index";
+}
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+</head>
+
+<script>
+    $(document).ready(function () {
+
+        $(function () {
+            $('#mail').autocomplete({
+                source: '@Url.Action("GetUserMail")'
+                })
+
+          })
+     });
+</script>
+<h2>Index</h2>
+
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+
+    <form method="get" action="/Users/Index">
+        <input type="text" name="Name" value="@ViewBag.Name" id="name" placeholder="სახელი" />
+        <input type="text" name="Surname" value="@ViewBag.Surname" id="surname" placeholder="გვარი" />
+        <input type="text" name="Mail" value="@ViewBag.Mail" id="mail" placeholder="ელფოსტა" />
+        <input type="submit" class="btn btn-primary" value="ძებნა" />
+    </form>
+    <br />
+    <div id="main-body">
+        <table class="table">
+            <tr>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.First().First_Name)*@
+                    @Ajax.ActionLink("Name", "SortBy", new { sortBy = ViewBag.SortByName, name = ViewBag.Name, surname = ViewBag.Surname, mail = ViewBag.Mail },
+                     new AjaxOptions()
+                     {
+                         HttpMethod = "Get",
+                         UpdateTargetId = "main-body",
+                         InsertionMode = InsertionMode.Replace
+                      })
+                </th>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.First().Last_Name)*@
+                    @Ajax.ActionLink("Surname", "SortBy", new { sortBy = ViewBag.SortBySurname, name = ViewBag.Name, surname = ViewBag.Surname, mail = ViewBag.Mail },
+                    new AjaxOptions()
+                    {
+                        HttpMethod = "Get",
+                        UpdateTargetId = "main-body",
+                        InsertionMode = InsertionMode.Replace
+                    })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Mail)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Password)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().User_Categories.Name)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.First_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Last_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User_Categories.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-md" }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-md" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-primary btn-md" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+        @Html.PagedListPager(Model, page => Url.Action("SortBy", new { fromPage = false, page = page, sortBy = ViewBag.CurrentSort, name = ViewBag.Name, surname = ViewBag.Surname, mail = ViewBag.Mail }),
+       PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "main-body" }))
+    </div>
+<div>
+    @Html.ActionLink("Back to List", "Index", "Home")
+</div>

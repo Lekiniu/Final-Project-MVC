@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="First_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Last_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Age" Type="smallint" />
+    <Property Name="Sex" Type="nvarchar" MaxLength="50" />
+    <Property Name="Mail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone_Number" Type="int" />
+    <Property Name="Mobile_Number" Type="int" />
+    <Property Name="Facebook" Type="varchar" MaxLength="50" />
+    <Property Name="Twitter" Type="varchar" MaxLength="50" />
+    <Property Name="Registration_Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customers_Address">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Postal_code" Type="smallint" Nullable="false" />
+    <Property Name="Customers_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Url" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Product_Id" Type="int" Nullable="false" />
+    <Property Name="Customers_Id" Type="int" Nullable="false" />
+    <Property Name="Order_date" Type="datetime" />
+    <Property Name="Order_quantity" Type="int" />
+    <Property Name="Delivered" Type="bit" />
+    <Property Name="Credited" Type="bit" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Price" Type="int" Nullable="false" />
+    <Property Name="InStock" Type="bit" Nullable="false" />
+    <Property Name="Brand" Type="nvarchar" MaxLength="50" />
+    <Property Name="Picture" Type="image" />
+    <Property Name="Garanty" Type="int" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="SuppliersId" Type="int" Nullable="false" />
+    <Property Name="ImageId" Type="int" />
+  </EntityType>
+  <EntityType Name="Products_Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoriesId" Type="int" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Suppliers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone_Number" Type="int" Nullable="false" />
+    <Property Name="Mobile_Number" Type="int" />
+    <Property Name="Mail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Facebook" Type="varchar" MaxLength="50" />
+    <Property Name="Twitter" Type="varchar" MaxLength="50" />
+    <Property Name="Logo" Type="image" />
+    <Property Name="Website" Type="varchar" MaxLength="50" />
+    <Property Name="Working_Hours" Type="datetime" />
+    <Property Name="Delivery_Service" Type="bit" Nullable="false" />
+    <Property Name="Credit_Service" Type="bit" Nullable="false" />
+    <Property Name="Registration_Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Suppliers_Address">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Postal_code" Type="smallint" />
+    <Property Name="Suppliers_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Customers_Address_Customers">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="Customers_Address" Type="Self.Customers_Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customers_Address">
+        <PropertyRef Name="Customers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Customers">
+    <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Customers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Images">
+    <End Role="Images" Type="Self.Images" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Images">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ImageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Suppliers">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="SuppliersId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Categories_Categories">
+    <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+    <End Role="Products_Categories" Type="Self.Products_Categories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Products_Categories">
+        <PropertyRef Name="CategoriesId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Products_Categories_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Products_Categories" Type="Self.Products_Categories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Products_Categories">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Suppliers_Address_Suppliers">
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1" />
+    <End Role="Suppliers_Address" Type="Self.Suppliers_Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suppliers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Suppliers_Address">
+        <PropertyRef Name="Suppliers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjectModelStoreContainer">
+    <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customers_Address" EntityType="Self.Customers_Address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products_Categories" EntityType="Self.Products_Categories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suppliers_Address" EntityType="Self.Suppliers_Address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Customers_Address_Customers" Association="Self.FK_Customers_Address_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Customers_Address" EntitySet="Customers_Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Product" Association="Self.FK_Orders_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Images" Association="Self.FK_Product_Images">
+      <End Role="Images" EntitySet="Images" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Suppliers" Association="Self.FK_Product_Suppliers">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Categories_Categories" Association="Self.FK_Products_Categories_Categories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Products_Categories" EntitySet="Products_Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Products_Categories_Product" Association="Self.FK_Products_Categories_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Products_Categories" EntitySet="Products_Categories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Suppliers_Address_Suppliers" Association="Self.FK_Suppliers_Address_Suppliers">
+      <End Role="Suppliers" EntitySet="Suppliers" />
+      <End Role="Suppliers_Address" EntitySet="Suppliers_Address" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
